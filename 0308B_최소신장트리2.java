@@ -8,6 +8,7 @@ public class Solution {
 	static int mst[]; // mst 포함 여부
 	static int last;
 	static int [][] Q;
+	static int [] t;
 	public static void main(String[] args) throws Exception{
 		System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);
@@ -21,7 +22,7 @@ public class Solution {
 			mst = new int[V+1];
 			last = 0;
 			Q = new int[E+1][3];
-
+			t = new int[3];
 			for(int i=0;i<E; i++)
 			{
 				int n1 = sc.nextInt();
@@ -42,7 +43,7 @@ public class Solution {
 			mst[i]= i; // 각자 대표 노드
 		while(last>0)
 		{
-			int t[] = deQ();
+			deQ();
 			int c0 = t[0];
 			// 대표원소 조사
 			while(mst[c0]!=c0)
@@ -73,9 +74,12 @@ public class Solution {
 		while( Q[p][2] > Q[c][2] && c>1 )
 		{
 
-			int t[] = Q[p];
-			Q[p] = Q[c];
-			Q[c] = t;
+			for(int i=0; i<3; i++)
+			{
+				Q[0][i] = Q[p][i];
+				Q[p][i] = Q[c][i];
+				Q[c][i] = Q[0][i];
+			}
 			c= p;
 			p = p/2;
 		}	
@@ -83,8 +87,15 @@ public class Solution {
 	
 	public static int[] deQ()
 	{
-		int r[] = Q[1];
-		Q[1]= Q[last];
+		t[0] = Q[1][0];
+		t[1] = Q[1][1];
+		t[2] = Q[1][2];
+		// root <- Q[last]
+		for(int i=0; i<3; i++)
+		{
+			Q[1][i] = Q[last][i];
+		}
+		
 		last--;
 		int p = 1;
 		while(p<last)
@@ -96,9 +107,12 @@ public class Solution {
 				int c = Q[c1][2]<Q[c2][2]?c1:c2;
 				if( Q[c][2] < Q[p][2] )
 				{
-					int t[] = Q[c];
-					Q[c] = Q[p];
-					Q[p] = t;
+					for(int i=0; i<3; i++)
+					{
+						Q[0][i] = Q[p][i];
+						Q[p][i] = Q[c][i];
+						Q[c][i] = Q[0][i];
+					}
 					p = c;
 				}
 				else
@@ -108,9 +122,12 @@ public class Solution {
 			{
 				if(Q[c1][2]<Q[p][2])
 				{
-					int t[] = Q[c1];
-					Q[c1] = Q[p];
-					Q[p] = t;
+					for(int i=0; i<3; i++)
+					{
+						Q[0][i] = Q[p][i];
+						Q[p][i] = Q[c1][i];
+						Q[c1][i] = Q[0][i];
+					}
 					p = c1;
 				}
 				else
@@ -119,7 +136,7 @@ public class Solution {
 			else
 				break;
 		}
-		return r;
+		
 	}
 	
 }
