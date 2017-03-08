@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 public class Solution {
 	static int V;
 	static int E;
-	static int [][] adj; // 인접행렬
+	
 	static int mst[]; // mst 포함 여부
 	static int last;
 	static int [][] Q;
@@ -27,8 +27,7 @@ public class Solution {
 				int n1 = sc.nextInt();
 				int n2 = sc.nextInt();
 				int w=sc.nextInt();
-				adj[n1][n2] = w;
-				adj[n2][n1] = w;
+		
 				enQ(n1, n2, w);
 			}
 
