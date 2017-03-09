@@ -37,6 +37,43 @@ public class Solution {
 			System.out.println("#"+tc +" "+d[N-1][N-1]);
 		}
 	}
+		// 우선순위 큐 사용..
+	public static void dij2()
+	{
+		
+		int dr[] = {0, 1, 0, -1};
+		int dc[] = {1, 0, -1, 0};
+		// 시작점 초기화
+
+		d[0][0] = 0;
+		enQ(0,0,0);
+		while(last>0)
+		{
+			deQ(); // d[][]최소인 좌표
+			u[t[0]][t[1]]=1;
+			for(int i = 0 ; i<4; i++)
+			{
+				int nr = t[0] + dr[i];
+				int nc = t[1] + dc[i];
+				if((nr>=0)&&(nr<N)&&(nc>=0)&&(nc<N)) // 유효한 범위면
+				{
+					if(u[nr][nc]==0)
+					{
+						int diff = 0;
+						if(map[nr][nc]>map[t[0]][t[1]]) // 높이 차에 의한 연료 소비
+							diff = map[nr][nc]-map[t[0]][t[1]];
+								
+						int tmp = t[2]+1+diff; // tr,tc를 거쳐 nr,nc로 가는 비용 
+						if(d[nr][nc]>tmp)
+						{
+							d[nr][nc] = tmp;
+							enQ(nr, nc, d[nr][nc]);
+						}
+					}
+				}
+			}
+		}
+	}
   	public static void enQ(int n1, int n2, int w)
 	{
 		int c = ++last;
@@ -112,4 +149,4 @@ public class Solution {
 		}
 	
 	}
-}
+}
