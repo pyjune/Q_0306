@@ -85,7 +85,7 @@ public class Solution {
 		}	
 	}
 	
-	public static int[] deQ()
+	public static void deQ()
 	{
 		t[0] = Q[1][0];
 		t[1] = Q[1][1];
