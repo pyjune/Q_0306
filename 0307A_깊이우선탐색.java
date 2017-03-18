@@ -35,7 +35,7 @@ public class Solution {
 	{
 		visited[n] = 1;
 		System.out.print(" "+n);
-		for(int i = 1; i<=V; i++)
+		for(int i = 0; i<=V; i++)
 		{
 			if(adj[n][i]==1 && visited[i]==0)
 			{
